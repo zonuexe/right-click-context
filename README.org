@@ -1,5 +1,51 @@
 * Emacs Right Click Context menu
 
+*This package is in development.*
+
+A customizable context menu, call it from right-click of mouse.  You can also use the context menu from keyboard.
+
+** Demo
+
+[[file:demo.gif]]
+
+** Install
+
+*** Cask
+
+#+BEGIN_SRC emacs-lisp
+(depends-on "right-click-context" :git "git@github.com:zonuexe/right-click-context.git")
+#+END_SRC
+
+** Setup
+
+*** Easy way (use minor-mode)
+
 #+BEGIN_SRC emacs-lisp
 (right-click-context-mode 1)
+
+;; If want to use context menu by keyboard
+;(define-key right-click-context-mode-map (kbd "C-c :") 'right-click-context-menu)
+#+END_SRC
+
+*** Use keymap
+
+If you do not need the minor-mode, you can add a command to global keymap.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "<mouse-3>") 'right-click-context-menu)
+
+(bind-key "C-c <mouse-3>" 'right-click-context-menu)
+(bind-key "C-c :" 'right-click-context-menu)
+#+END_SRC
+
+*** Hide righter
+
+You will feel mode line is that it is complicated.
+
+#+BEGIN_SRC emacs-lisp
+;; Use emoji
+(setq right-click-context-mode-lighter "🐭")
+
+;; hidden
+(setq right-click-context-mode-lighter "")
 #+END_SRC
