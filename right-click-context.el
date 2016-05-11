@@ -86,21 +86,12 @@
    (:else right-click-context-global-menu-tree)))
 
 ;;;###autoload
-(defun turn-on-right-click-context ()
-  "Enable `right-click-context-mode' in the current buffer."
-  (interactive)
-  (right-click-context-mode 1))
-
-;;;###autoload
 (define-minor-mode right-click-context-mode
   "Minor mode for enable Right Click Context menu."
   :lighter right-click-context-mode-lighter
+  :global t
   right-click-context-mode-map
   :group 'right-click-context)
-
-;;;###autoload
-(define-globalized-minor-mode global-right-click-context-mode
-  right-click-context-mode turn-on-right-click-context)
 
 ;;;###autoload
 (defun right-click-context-menu ()
