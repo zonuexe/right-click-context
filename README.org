@@ -1,0 +1,5 @@
+* Emacs/Easy right click menu!
+
+#+BEGIN_SRC emacs-lisp
+(global-right-click-context-mode)
+#+END_SRC
