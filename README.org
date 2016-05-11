@@ -1,4 +1,4 @@
-* Emacs/Easy right click menu!
+* Emacs Right Click Context menu
 
 #+BEGIN_SRC emacs-lisp
 (right-click-context-mode 1)
