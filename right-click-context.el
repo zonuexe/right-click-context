@@ -27,6 +27,7 @@
 
 ;;; Commentary:
 
+;;;     (right-click-context-mode 1)
 
 ;;; Code:
 (require 'cl-lib)
