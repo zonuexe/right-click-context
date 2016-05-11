@@ -56,14 +56,18 @@
 (defcustom right-click-context-global-menu-tree
   '(;;("Undo" :call (if (fboundp 'undo-tree-undo) (undo-tree-undo) (undo-only)))
     ;;("Redo" :call (if (fboundp 'undo-tree-redo) (undo-tree-redo)) :if (and (fboundp 'undo-tree-redo) (undo-tree-node-previous (undo-tree-current buffer-undo-tree))))
-    ("Copy" :call (kill-ring-save beg end))
-    ("Cut"  :call (kill-region beg end))
-    ("Paste" :call (yank))
-    ("Select All" :call (mark-whole-buffer) :if (not (use-region-p)))
-    ("Indent" :call #'indent-for-tab-command)
+    ("Copy" :call (kill-ring-save beg end) :if mark-active)
+    ("Cut"  :call (kill-region beg end) :if (and mark-active (not buffer-read-only)))
+    ("Paste" :call (yank) :if (not buffer-read-only))
+    ("Select Region"
+     ("All"  :call (mark-whole-buffer) :if (not mark-active))
+     ("Word" :call (mark-word))
+     ("Paragraph" :call (mark-paragraph)))
     ("Text Convert"
-     ("downcase" :call (downcase-region beg end))
-     ("upcase"   :call (upcase-region beg end))))
+     ("Downcase"   :call (downcase-region beg end))
+     ("Upcase"     :call (upcase-region beg end))
+     ("Capitalize" :call (capitalize-region beg end)))
+    ("Describe Character" :call (describe-char (point)) :if (not (use-region-p))))
   "Right Click Context menu.")
 
 (defun right-click-context--build-menu-for-popup-el (tree)
@@ -82,10 +86,9 @@
 
 (defun right-click-context--menu-tree ()
   "Return right click menu tree."
-  (cond
-   ((fboundp right-click-context-local-menu-tree) (funcall right-click-context-local-menu-tree))
-   (right-click-context-local-menu-tree right-click-context-local-menu-tree)
-   (:else right-click-context-global-menu-tree)))
+  (cond ((fboundp right-click-context-local-menu-tree) (funcall right-click-context-local-menu-tree))
+        (right-click-context-local-menu-tree right-click-context-local-menu-tree)
+        (:else right-click-context-global-menu-tree)))
 
 ;;;###autoload
 (define-minor-mode right-click-context-mode
