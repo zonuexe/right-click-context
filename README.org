@@ -38,7 +38,7 @@ If you do not need the minor-mode, you can add a command to global keymap.
 (bind-key "C-c :" 'right-click-context-menu)
 #+END_SRC
 
-*** Hide righter
+*** Hide lighter
 
 You will feel mode line is that it is complicated.
 
