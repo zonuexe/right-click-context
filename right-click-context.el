@@ -32,6 +32,7 @@
 
 ;;; Code:
 (require 'cl-lib)
+(require 'url-util)
 (require 'popup nil t)
 (require 'undo-tree nil t)
 
@@ -56,11 +57,11 @@
 (defcustom right-click-context-global-menu-tree
   '(;;("Undo" :call (if (fboundp 'undo-tree-undo) (undo-tree-undo) (undo-only)))
     ;;("Redo" :call (if (fboundp 'undo-tree-redo) (undo-tree-redo)) :if (and (fboundp 'undo-tree-redo) (undo-tree-node-previous (undo-tree-current buffer-undo-tree))))
-    ("Copy" :call (kill-ring-save beg end) :if mark-active)
-    ("Cut"  :call (kill-region beg end) :if (and mark-active (not buffer-read-only)))
+    ("Copy" :call (kill-ring-save beg end) :if (use-region-p))
+    ("Cut"  :call (kill-region beg end) :if (and (use-region-p) (not buffer-read-only)))
     ("Paste" :call (yank) :if (not buffer-read-only))
     ("Select Region"
-     ("All"  :call (mark-whole-buffer) :if (not mark-active))
+     ("All"  :call (mark-whole-buffer) :if (not (use-region-p)))
      ("Word" :call (mark-word))
      ("Paragraph" :call (mark-paragraph))
      ;("Rectangle" :call rectangle-mark-mode)
@@ -69,6 +70,8 @@
      ("Downcase"   :call (downcase-region beg end))
      ("Upcase"     :call (upcase-region beg end))
      ("Capitalize" :call (capitalize-region beg end))
+     ("URL Encode" :call (right-click-context--process-region beg end 'url-encode-url))
+     ("URL Decode" :call (right-click-context--process-region beg end 'right-click-context--url-decode))
      ("Comment Out" :call comment-dwim))
     ("Go To"
      ("Top"    :call (goto-char (point-min)))
@@ -96,6 +99,21 @@
   (cond ((fboundp right-click-context-local-menu-tree) (funcall right-click-context-local-menu-tree))
         (right-click-context-local-menu-tree right-click-context-local-menu-tree)
         (:else right-click-context-global-menu-tree)))
+
+(defun right-click-context--process-region (begin end callback &rest args)
+  "Convert string in region(BEGIN to END) by `CALLBACK' function."
+  (let ((region-string (buffer-substring-no-properties begin end))
+        result)
+    (setq result (apply callback region-string args))
+    (if (null result)
+        (error "Convert Error.")
+      (delete-region begin end)
+      (insert result)
+      (set-mark begin))))
+
+(defun right-click-context--url-decode (src-string)
+  "Return URI decoded string from `SRC-STRING'."
+  (decode-coding-string (url-unhex-string (url-encode-url src-string)) 'utf-8))
 
 ;;;###autoload
 (define-minor-mode right-click-context-mode
