@@ -63,7 +63,8 @@
      ("All"  :call (mark-whole-buffer) :if (not mark-active))
      ("Word" :call (mark-word))
      ("Paragraph" :call (mark-paragraph))
-     ("Rectangle" :call rectangle-mark-mode))
+     ;("Rectangle" :call rectangle-mark-mode)
+     )
     ("Text Convert"
      ("Downcase"   :call (downcase-region beg end))
      ("Upcase"     :call (upcase-region beg end))
