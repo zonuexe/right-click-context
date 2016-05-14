@@ -62,11 +62,17 @@
     ("Select Region"
      ("All"  :call (mark-whole-buffer) :if (not mark-active))
      ("Word" :call (mark-word))
-     ("Paragraph" :call (mark-paragraph)))
+     ("Paragraph" :call (mark-paragraph))
+     ("Rectangle" :call rectangle-mark-mode))
     ("Text Convert"
      ("Downcase"   :call (downcase-region beg end))
      ("Upcase"     :call (upcase-region beg end))
-     ("Capitalize" :call (capitalize-region beg end)))
+     ("Capitalize" :call (capitalize-region beg end))
+     ("Comment Out" :call comment-dwim))
+    ("Go To"
+     ("Top"    :call (goto-char (point-min)))
+     ("Bottom" :call (goto-char (point-max)))
+     ("Directory" :call (find-file default-directory)))
     ("Describe Character" :call (describe-char (point)) :if (not (use-region-p))))
   "Right Click Context menu.")
 
