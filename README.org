@@ -49,3 +49,15 @@ You will feel mode line is that it is complicated.
 ;; hidden
 (setq right-click-context-mode-lighter "")
 #+END_SRC
+
+** Customize Menu
+*** DSL
+#+BEGIN_SRC emacs-lisp
+(require 'datetime-format nil t)
+(let ((right-click-context-local-menu-tree
+       (append right-click-context-global-menu-tree
+               '(("Insert"
+                  ("FooBar" :call (insert "FooBar"))
+                  ("Current Time" :call (insert (datetime-format 'atom)) :if (fboundp 'datetime-format)))))))
+  (right-click-context-menu))
+#+END_SRC
