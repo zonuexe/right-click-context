@@ -96,7 +96,7 @@
 
 (defun right-click-context--menu-tree ()
   "Return right click menu tree."
-  (cond ((fboundp right-click-context-local-menu-tree) (funcall right-click-context-local-menu-tree))
+  (cond ((and (symbolp right-click-context-local-menu-tree) (fboundp right-click-context-local-menu-tree)) (funcall right-click-context-local-menu-tree))
         (right-click-context-local-menu-tree right-click-context-local-menu-tree)
         (:else right-click-context-global-menu-tree)))
 
