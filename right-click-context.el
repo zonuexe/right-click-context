@@ -101,12 +101,12 @@
         (:else right-click-context-global-menu-tree)))
 
 (defun right-click-context--process-region (begin end callback &rest args)
-  "Convert string in region(BEGIN to END) by `CALLBACK' function."
+  "Convert string in region(BEGIN to END) by `CALLBACK' function call with additional arguments `ARGS'."
   (let ((region-string (buffer-substring-no-properties begin end))
         result)
     (setq result (apply callback region-string args))
     (if (null result)
-        (error "Convert Error.")
+        (error "Convert Error")
       (delete-region begin end)
       (insert result)
       (set-mark begin))))
