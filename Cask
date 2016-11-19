@@ -1,8 +1,9 @@
 (source gnu)
 (source melpa)
 
-(package "erc" "0.0.1" "Easy Right Click menu")
-(package-file "erc.el")
+(package "erc" "0.0.1" "Right Click Context menu")
+(package-file "region-convert.el")
+(package-file "right-click-context.el")
 
 (depends-on "popup")
 
