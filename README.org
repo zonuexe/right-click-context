@@ -61,3 +61,25 @@ You will feel mode line is that it is complicated.
                   ("Current Time" :call (insert (datetime-format 'atom)) :if (fboundp 'datetime-format)))))))
   (right-click-context-menu))
 #+END_SRC
+
+* Region Convert (=region-convert.el=)
+
+[[file:demo-region-convert.gif]]
+
+** Interactive
+
+  1. Select text region (mark region)
+  2. =M-x region-convert= (or press binding key)
+  3. Input function name (completing read)
+
+*** Key binding
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c r") 'region-convert)
+#+END_SRC
+
+** Use from Lisp
+
+#+BEGIN_SRC emacs-lisp
+(region-convert 5 22 'upcase)
+#+END_SRC
