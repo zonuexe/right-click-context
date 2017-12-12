@@ -120,6 +120,7 @@
   "Minor mode for enable Right Click Context menu."
   :lighter right-click-context-mode-lighter
   :global t
+  :require 'right-click-context
   right-click-context-mode-map
   :group 'right-click-context)
 
