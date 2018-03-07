@@ -48,13 +48,11 @@
   "Lighter displayed in mode line when `right-click-context-mode' is enabled."
   :type 'string)
 
-(defvar right-click-context-mode-map nil
-  "Keymap used in right-click-context-mode.")
-
-(unless right-click-context-mode-map
+(defvar right-click-context-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "<mouse-3>") 'right-click-context-menu)
-    (setq right-click-context-mode-map map)))
+    map)
+  "Keymap used in right-click-context-mode.")
 
 (defcustom right-click-context-global-menu-tree
   '(;;("Undo" :call (if (fboundp 'undo-tree-undo) (undo-tree-undo) (undo-only)))
