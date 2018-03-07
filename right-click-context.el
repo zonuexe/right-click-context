@@ -41,10 +41,12 @@
   :group 'convenience)
 
 (defcustom right-click-context-interface 'popup-el
-  "Menu interface for Right Click Context menu.")
+  "Menu interface for Right Click Context menu."
+  :type 'function)
 
 (defcustom right-click-context-mode-lighter " RightClick"
-  "Lighter displayed in mode line when `right-click-context-mode' is enabled.")
+  "Lighter displayed in mode line when `right-click-context-mode' is enabled."
+  :type 'string)
 
 (defvar right-click-context-mode-map nil
   "Keymap used in right-click-context-mode.")
@@ -78,7 +80,8 @@
      ("Bottom" :call (goto-char (point-max)))
      ("Directory" :call (find-file default-directory)))
     ("Describe Character" :call (describe-char (point)) :if (not (use-region-p))))
-  "Right Click Context menu.")
+  "Right Click Context menu."
+  :type 'list)
 
 (defun right-click-context--build-menu-for-popup-el (tree)
   "Build right click menu for `popup.el' from `TREE'."
