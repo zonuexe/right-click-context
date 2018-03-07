@@ -85,7 +85,7 @@
   (cl-loop
    for n from 0
    for (name . l) in tree
-   if (not (stringp name)) return (error (format "Invalid tree. (%d-th elm)" n))
+   if (not (stringp name)) do (error (format "Invalid tree. (%d-th elm)" n))
    if (or (null (plist-get l :if)) (eval (plist-get l :if)))
    if (listp (car l)) collect (cons name (right-click-context--build-menu-for-popup-el l))
    else collect (popup-make-item name :value (plist-get l :call))))
