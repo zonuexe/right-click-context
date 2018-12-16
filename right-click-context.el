@@ -45,7 +45,7 @@
 ;;; Code:
 (require 'cl-lib)
 (require 'url-util)
-(require 'popup nil t)
+(require 'popup)
 (require 'undo-tree nil t)
 
 (defgroup right-click-context ()
