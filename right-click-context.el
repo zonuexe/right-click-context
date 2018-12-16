@@ -62,7 +62,7 @@
 
 (defvar right-click-context-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "<mouse-3>") 'right-click-context-menu)
+    (define-key map (kbd "<mouse-3>") #'right-click-context-menu)
     map)
   "Keymap used in right-click-context-mode.")
 
