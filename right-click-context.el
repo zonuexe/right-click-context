@@ -103,9 +103,8 @@
    if (listp (car l)) collect (cons name (right-click-context--build-menu-for-popup-el l))
    else collect (popup-make-item name :value (plist-get l :call))))
 
-(defvar right-click-context-local-menu-tree nil
+(defvar-local right-click-context-local-menu-tree nil
   "Buffer local Right Click Menu.")
-(make-variable-buffer-local 'right-click-context-local-menu-tree)
 
 (defun right-click-context--menu-tree ()
   "Return right click menu tree."
