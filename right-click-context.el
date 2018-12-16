@@ -1,4 +1,4 @@
-;;; right-click-context.el --- Right Click Context menu
+;;; right-click-context.el --- Right Click Context menu  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018 USAMI Kenta
 
