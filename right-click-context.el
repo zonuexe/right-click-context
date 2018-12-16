@@ -46,7 +46,6 @@
 (require 'cl-lib)
 (require 'url-util)
 (require 'popup)
-(require 'undo-tree nil t)
 
 (defgroup right-click-context ()
   "Right Click Context menu"
