@@ -128,7 +128,17 @@
 
 ;;;###autoload
 (define-minor-mode right-click-context-mode
-  "Minor mode for enable Right Click Context menu."
+  "Minor mode for enable Right Click Context menu.
+
+This mode just binds the context menu to <mouse-3> (\"Right Click\").
+
+\\{right-click-context-mode-map}
+If you do not want to bind this right-click, you should not call this minor-mode.
+
+You probably want to just add follows code to your .emacs file (init.el).
+
+    (global-set-key (kbd \"C-c :\") #'right-click-context-menu)
+"
   :lighter right-click-context-mode-lighter
   :global t
   :require 'right-click-context
