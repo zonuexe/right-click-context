@@ -51,10 +51,6 @@
   "Right Click Context menu"
   :group 'convenience)
 
-(defcustom right-click-context-interface 'popup-el
-  "Menu interface for Right Click Context menu."
-  :type 'function)
-
 (defcustom right-click-context-mode-lighter " RightClick"
   "Lighter displayed in mode line when `right-click-context-mode' is enabled."
   :type 'string)
