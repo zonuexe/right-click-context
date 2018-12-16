@@ -76,7 +76,7 @@
      ("All"  :call (mark-whole-buffer) :if (not (use-region-p)))
      ("Word" :call (mark-word))
      ("Paragraph" :call (mark-paragraph))
-     ;("Rectangle" :call rectangle-mark-mode)
+     ;; ("Rectangle" :call rectangle-mark-mode)
      )
     ("Text Convert"
      ("Downcase"   :call (downcase-region beg end))
