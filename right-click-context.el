@@ -40,7 +40,20 @@
 ;;     (define-key right-click-context-mode-map (kbd "C-c :") 'right-click-context-menu)
 ;;
 ;; This menu can be constructed with a simple DSL based on S-expression.
-;; Additional information can be found in README and implementation code
+;; Additional information can be found in README and implementation code.
+;;
+;; ## Context-menu construction DSL
+;;
+;; For example, the following code adds undo and redo to the beginning of the context menu.
+;;
+;;     (setq right-click-context-global-menu-tree
+;;           (append
+;;            '((\"Undo\" :call (if (fboundp 'undo-tree-undo) (undo-tree-undo) (undo-only)))
+;;              (\"Redo\"
+;;              :call (if (fboundp 'undo-tree-redo) (undo-tree-redo))
+;;              :if (and (fboundp 'undo-tree-redo) (undo-tree-node-previous (undo-tree-current buffer-undo-tree)))))
+;;            right-click-context-global-menu-tree))
+
 
 ;;; Code:
 (require 'cl-lib)
@@ -62,17 +75,13 @@
   "Keymap used in right-click-context-mode.")
 
 (defcustom right-click-context-global-menu-tree
-  '(;;("Undo" :call (if (fboundp 'undo-tree-undo) (undo-tree-undo) (undo-only)))
-    ;;("Redo" :call (if (fboundp 'undo-tree-redo) (undo-tree-redo)) :if (and (fboundp 'undo-tree-redo) (undo-tree-node-previous (undo-tree-current buffer-undo-tree))))
-    ("Copy" :call (kill-ring-save beg end) :if (use-region-p))
+  '(("Copy" :call (kill-ring-save beg end) :if (use-region-p))
     ("Cut"  :call (kill-region beg end) :if (and (use-region-p) (not buffer-read-only)))
     ("Paste" :call (yank) :if (not buffer-read-only))
     ("Select Region"
      ("All"  :call (mark-whole-buffer) :if (not (use-region-p)))
      ("Word" :call (mark-word))
-     ("Paragraph" :call (mark-paragraph))
-     ;; ("Rectangle" :call rectangle-mark-mode)
-     )
+     ("Paragraph" :call (mark-paragraph)))
     ("Text Convert"
      ("Downcase"   :call (downcase-region beg end))
      ("Upcase"     :call (upcase-region beg end))
