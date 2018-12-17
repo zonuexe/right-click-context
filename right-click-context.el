@@ -76,19 +76,23 @@
   "Keymap used in right-click-context-mode.")
 
 (defcustom right-click-context-global-menu-tree
-  '(("Copy" :call (kill-ring-save beg end) :if (use-region-p))
-    ("Cut"  :call (kill-region beg end) :if (and (use-region-p) (not buffer-read-only)))
+  '(("Copy" :call (kill-ring-save (region-beginning) (region-end))
+     :if (use-region-p))
+    ("Cut"  :call (kill-region (region-beginning) (region-end))
+     :if (and (use-region-p) (not buffer-read-only)))
     ("Paste" :call (yank) :if (not buffer-read-only))
     ("Select Region"
      ("All"  :call (mark-whole-buffer) :if (not (use-region-p)))
      ("Word" :call (mark-word))
      ("Paragraph" :call (mark-paragraph)))
     ("Text Convert"
-     ("Downcase"   :call (downcase-region beg end))
-     ("Upcase"     :call (upcase-region beg end))
-     ("Capitalize" :call (capitalize-region beg end))
-     ("URL Encode" :call (right-click-context--process-region beg end 'url-encode-url))
-     ("URL Decode" :call (right-click-context--process-region beg end 'right-click-context--url-decode))
+     ("Downcase"   :call (downcase-region (region-beginning) (region-end)))
+     ("Upcase"     :call (upcase-region (region-beginning) (region-end)))
+     ("Capitalize" :call (capitalize-region (region-beginning) (region-end)))
+     ("URL Encode" :call (right-click-context--process-region
+                          (region-beginning) (region-end) 'url-encode-url))
+     ("URL Decode" :call (right-click-context--process-region
+                          (region-beginning) (region-end) 'right-click-context--url-decode))
      ("Comment Out" :call comment-dwim))
     ("Go To"
      ("Top"    :call (goto-char (point-min)))
@@ -190,12 +194,8 @@ You probably want to just add follows code to your .emacs file (init.el).
 (defun right-click-context-menu ()
   "Open Right Click Context menu."
   (interactive)
-  (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree) nil)))
-        beg end)
+  (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree) nil))))
     (when value
-      (when (region-active-p)
-        (setq beg (region-beginning))
-        (setq end (region-end)))
       (if (symbolp value)
           (call-interactively value t)
         (eval value)))))
