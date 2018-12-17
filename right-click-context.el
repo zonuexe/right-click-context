@@ -124,15 +124,25 @@ But Lisp's function `n-th' is 0 origin."
               (or (nth last-1-digit ordinals-table)
                   "th")))))
 
-(defun right-click-context--build-menu-for-popup-el (tree)
-  "Build right click menu for `popup.el' from `TREE'."
+(defun right-click-context--build-menu-for-popup-el (tree parent-labels)
+  "Build right click menu for `popup.el' from `TREE'.
+
+`PARENT-LABELS' requires to identify the cause of the error during construction of the tree."
   (cl-loop
    for n from 0
-   for (name . l) in tree
-   if (not (stringp name)) do (error (format "Invalid tree. (%d-th elm)" n))
-   if (or (null (plist-get l :if)) (eval (plist-get l :if)))
-   if (listp (car l)) collect (cons name (right-click-context--build-menu-for-popup-el l))
-   else collect (popup-make-item name :value (plist-get l :call))))
+   for (name . child) in tree
+   if (not (stringp name))
+   do (error
+       "Invalid tree.  (%s element(0-origin) of %s)" (right-click-context--ordinal-number n)
+       (if parent-labels
+           (mapconcat (lambda (string) (format "\"%s\"" string))
+                      (reverse parent-labels)
+                      "-")
+         "top-level"))
+   if (or (null (plist-get child :if)) (eval (plist-get child :if)))
+   if (listp (car child))
+   collect (cons name (right-click-context--build-menu-for-popup-el child (cons name parent-labels)))
+   else collect (popup-make-item name :value (plist-get child :call))))
 
 (defvar-local right-click-context-local-menu-tree nil
   "Buffer local Right Click Menu.")
@@ -180,7 +190,7 @@ You probably want to just add follows code to your .emacs file (init.el).
 (defun right-click-context-menu ()
   "Open Right Click Context menu."
   (interactive)
-  (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree))))
+  (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree) nil)))
         beg end)
     (when value
       (when (region-active-p)
