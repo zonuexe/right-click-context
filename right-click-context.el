@@ -110,6 +110,20 @@ label string as a key and plist for calling S expression."
                                                                      (const :call)))
                                             (alist :key-type string :tag "Context label"))))))
 
+(defun right-click-context--ordinal-number (n)
+  "Return string with an English ordinal appended to an integer `N'.
+
+NOTE: \"0th\" is not a correct English expression.
+But Lisp's function `n-th' is 0 origin."
+  (let ((last-1-digit (% n 10))
+        (last-2-digit (% n 100))
+        (ordinals-table '(nil "st" "nd" "rd")))
+    (format "%d%s" n
+            (if (memq last-2-digit '(11 12 13))
+                "th"
+              (or (nth last-1-digit ordinals-table)
+                  "th")))))
+
 (defun right-click-context--build-menu-for-popup-el (tree)
   "Build right click menu for `popup.el' from `TREE'."
   (cl-loop
