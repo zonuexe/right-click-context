@@ -85,8 +85,20 @@
      ("Bottom" :call (goto-char (point-max)))
      ("Directory" :call (find-file default-directory)))
     ("Describe Character" :call (describe-char (point)) :if (not (use-region-p))))
-  "Right Click Context menu."
-  :type 'list)
+  "Right Click Context menu for default context.
+
+This variable is a simple DSL with a tree structure consisting of alist with
+label string as a key and plist for calling S expression."
+  :group 'right-click-context
+  :type '(alist :key-type (string :tag "Context label")
+                :value-type
+                (choice (plist :key-type (choice (const :if)
+                                                 (const :call)))
+                        (alist :key-type string
+                               :value-type (choice
+                                            (plist :key-type (choice (const :if)
+                                                                     (const :call)))
+                                            (alist :key-type string :tag "Context label"))))))
 
 (defun right-click-context--build-menu-for-popup-el (tree)
   "Build right click menu for `popup.el' from `TREE'."
