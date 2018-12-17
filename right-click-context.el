@@ -66,6 +66,7 @@
 
 (defcustom right-click-context-mode-lighter " RightClick"
   "Lighter displayed in mode line when `right-click-context-mode' is enabled."
+  :group 'right-click-context
   :type 'string)
 
 (defvar right-click-context-mode-map
