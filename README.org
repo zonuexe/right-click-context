@@ -1,9 +1,9 @@
 * Emacs Right Click Context menu
-
-*This package is in development.*
-
 A customizable context menu, call it from right-click of mouse.  You can also use the context menu from keyboard.
-
+#+BEGIN_HTML
+<a href="https://melpa.org/#/right-click-context"><img alt="MELPA: right-click-context" src="https://melpa.org/packages/right-click-context-badge.svg"></a>
+<a href="https://stable.melpa.org/#/right-click-context"><img alt="MELPA stable: right-click-context" src="https://stable.melpa.org/packages/right-click-context-badge.svg"></a>
+#+END_HTML
 ** Demo
 
 [[file:demo.gif]]
@@ -63,9 +63,11 @@ You will feel mode line is that it is complicated.
 #+END_SRC
 
 * Region Convert (=region-convert.el=)
-
+#+BEGIN_HTML
+<a href="https://melpa.org/#/region-convert"><img alt="MELPA: region-convert" src="https://melpa.org/packages/region-convert-badge.svg"></a>
+<a href="https://stable.melpa.org/#/region-convert"><img alt="MELPA stable: region-convert" src="https://stable.melpa.org/packages/region-convert-badge.svg"></a>
+#+END_HTML
 [[file:demo-region-convert.gif]]
-
 ** Interactive
 
   1. Select text region (mark region)
