@@ -63,25 +63,4 @@ You will feel mode line is that it is complicated.
 #+END_SRC
 
 * Region Convert (=region-convert.el=)
-#+BEGIN_HTML
-<a href="https://melpa.org/#/region-convert"><img alt="MELPA: region-convert" src="https://melpa.org/packages/region-convert-badge.svg"></a>
-<a href="https://stable.melpa.org/#/region-convert"><img alt="MELPA stable: region-convert" src="https://stable.melpa.org/packages/region-convert-badge.svg"></a>
-#+END_HTML
-[[file:demo-region-convert.gif]]
-** Interactive
-
-  1. Select text region (mark region)
-  2. =M-x region-convert= (or press binding key)
-  3. Input function name (completing read)
-
-*** Key binding
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c r") 'region-convert)
-#+END_SRC
-
-** Use from Lisp
-
-#+BEGIN_SRC emacs-lisp
-(region-convert 5 22 'upcase)
-#+END_SRC
+That repository has moved to [[https://github.com/zonuexe/region-convert.el][zonuexe/region-convert.el]].
