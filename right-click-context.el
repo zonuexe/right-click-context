@@ -80,7 +80,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "<mouse-3>") #'right-click-context-click-menu)
     map)
-  "Keymap used in right-click-context-mode.")
+  "Keymap used in `right-click-context-mode'.")
 
 (defcustom right-click-context-global-menu-tree
   '(("Copy" :call (kill-ring-save (region-beginning) (region-end))
