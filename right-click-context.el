@@ -196,7 +196,6 @@ You probably want to just add follows code to your .emacs file (init.el).
   (interactive)
   (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree) nil))))
     (when value
-      (call-interactively #'mouse-set-point)
       (if (symbolp value)
           (call-interactively value t)
         (eval value)))))
