@@ -65,7 +65,7 @@
   :group 'convenience)
 
 (defcustom right-click-context-mode-lighter " RightClick"
-  "Lighter displayed in mode line when `right-click-context-mode' is enabled."
+  "Lighter displayed in mode line when `right-click-context-mode` is enabled."
   :group 'right-click-context
   :type 'string)
 
@@ -73,7 +73,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "<mouse-3>") #'right-click-context-menu)
     map)
-  "Keymap used in right-click-context-mode.")
+  "Keymap used in `right-click-context-mode`.")
 
 (defcustom right-click-context-global-menu-tree
   '(("Copy" :call (kill-ring-save (region-beginning) (region-end))
@@ -196,6 +196,7 @@ You probably want to just add follows code to your .emacs file (init.el).
   (interactive)
   (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree) nil))))
     (when value
+      (call-interactively #'mouse-set-point)
       (if (symbolp value)
           (call-interactively value t)
         (eval value)))))
