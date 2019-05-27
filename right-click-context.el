@@ -208,14 +208,25 @@ You probably want to just add follows code to your .emacs file (init.el).
   (right-click-context-menu))
 
 ;;;###autoload
+(defun right-click-context-click-menu-popup ()
+  "Open a new right click context menu at the new mouse position."
+  (interactive)
+  (when (memq this-command '(right-click-context-click-menu))
+    (popup-delete (nth (1- (length popup-instances)) popup-instances))
+    (call-interactively #'right-click-context-click-menu)))
+
+;;;###autoload
 (defun right-click-context-menu ()
   "Open Right Click Context menu."
   (interactive)
-  (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree) nil))))
-    (when value
-      (if (symbolp value)
-          (call-interactively value t)
-        (eval value)))))
+  (let ((ori-popup-menu-keymap (copy-sequence popup-menu-keymap)))
+    (define-key popup-menu-keymap [mouse-3] #'right-click-context-click-menu-popup)
+    (let ((value (popup-cascade-menu (right-click-context--build-menu-for-popup-el (right-click-context--menu-tree) nil))))
+      (when value
+        (if (symbolp value)
+            (call-interactively value t)
+          (eval value))))
+    (setq popup-menu-keymap ori-popup-menu-keymap)))
 
 (provide 'right-click-context)
 ;;; right-click-context.el ends here
