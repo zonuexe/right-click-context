@@ -198,7 +198,7 @@ You probably want to just add follows code to your .emacs file (init.el).
   :group 'right-click-context)
 
 ;;;###autoload
-(defun right-click-context-click-menu (event)
+(defun right-click-context-click-menu (_event)
   "Open Right Click Context menu by Mouse Click `EVENT'."
   (interactive "e")
   (when (or (eq right-click-context-mouse-set-point-before-open-menu 'always)
