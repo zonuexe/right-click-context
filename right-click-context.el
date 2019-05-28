@@ -5,7 +5,7 @@
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Created: 8 May 2016
 ;; Version: 0.3.0
-;; Package-Requires: ((emacs "24.3") (cl-lib "0.5") (popup "0.5"))
+;; Package-Requires: ((emacs "24.3") (cl-lib "0.5") (popup "0.5") (ordinal "0.0.1"))
 ;; Keywords: mouse menu rightclick
 ;; Homepage: https://github.com/zonuexe/right-click-context
 ;; License: GPL-3.0-or-later
@@ -59,6 +59,7 @@
 (require 'cl-lib)
 (require 'url-util)
 (require 'popup)
+(require 'ordinal)
 
 (defgroup right-click-context ()
   "Right Click Context menu"
@@ -121,20 +122,6 @@ label string as a key and plist for calling S expression."
                                                                      (const :call)))
                                             (alist :key-type string :tag "Context label"))))))
 
-(defun right-click-context--ordinal-number (n)
-  "Return string with an English ordinal appended to an integer `N'.
-
-NOTE: \"0th\" is not a correct English expression.
-But Lisp's function `n-th' is 0 origin."
-  (let ((last-1-digit (% n 10))
-        (last-2-digit (% n 100))
-        (ordinals-table '(nil "st" "nd" "rd")))
-    (format "%d%s" n
-            (if (memq last-2-digit '(11 12 13))
-                "th"
-              (or (nth last-1-digit ordinals-table)
-                  "th")))))
-
 (defun right-click-context--build-menu-for-popup-el (tree parent-labels)
   "Build right click menu for `popup.el' from `TREE'.
 
@@ -144,7 +131,8 @@ But Lisp's function `n-th' is 0 origin."
    for (name . child) in tree
    if (not (stringp name))
    do (error
-       "Invalid tree.  (%s element(0-origin) of %s)" (right-click-context--ordinal-number n)
+       "Invalid tree.  (%s element(0-origin) of %s)"
+       (let ((ordinal-number-accept-0 t)) (ordinal-format n))
        (if parent-labels
            (mapconcat (lambda (string) (format "\"%s\"" string))
                       (reverse parent-labels)
