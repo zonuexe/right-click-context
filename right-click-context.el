@@ -4,7 +4,7 @@
 
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Created: 8 May 2016
-;; Version: 0.2.0
+;; Version: 0.3.0
 ;; Package-Requires: ((emacs "24.3") (cl-lib "0.5") (popup "0.5"))
 ;; Keywords: mouse menu rightclick
 ;; Homepage: https://github.com/zonuexe/right-click-context
