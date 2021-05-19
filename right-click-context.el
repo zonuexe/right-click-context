@@ -54,9 +54,9 @@
 ;;              :if (and (fboundp 'undo-tree-redo) (undo-tree-node-previous (undo-tree-current buffer-undo-tree)))))
 ;;            right-click-context-global-menu-tree))
 
-
 ;;; Code:
-(require 'cl-lib)
+(eval-when-compile
+  (require 'cl-lib))
 (require 'url-util)
 (require 'popup)
 (require 'ordinal)
