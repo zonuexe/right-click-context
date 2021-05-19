@@ -1,10 +1,10 @@
 ;;; right-click-context.el --- Right Click Context menu  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2018 USAMI Kenta
+;; Copyright (C) 2021 USAMI Kenta
 
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Created: 8 May 2016
-;; Version: 0.3.0
+;; Version: 0.4.0
 ;; Package-Requires: ((emacs "24.3") (popup "0.5") (ordinal "0.0.1"))
 ;; Keywords: mouse menu rightclick
 ;; Homepage: https://github.com/zonuexe/right-click-context
