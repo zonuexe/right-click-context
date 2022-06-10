@@ -1,3 +1,4 @@
 *-autoloads.el
 *.elc
-/.cask
+/.eask
+/dist

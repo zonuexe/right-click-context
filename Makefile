@@ -1,32 +1,30 @@
-CASK ?= cask
+EASK ?= eask
 EMACS ?= emacs
-ELS = right-click-context.el
-AUTOLOADS = right-click-context-autoload.el
-ELCS = $(ELS:.el=.elc)
 
-.cask: Cask
-	CASK
+package:
+	@echo "Packaging..."
+	$(EASK) package
 
-%.elc: %.el .cask
-	$(EMACS) -Q -batch -L . --eval \
-	"(let ((default-directory (expand-file-name \".cask\" default-directory))) \
-           (normal-top-level-add-subdirs-to-load-path))" \
-       -f batch-byte-compile $<
+install:
+	@echo "Installing..."
+	$(EASK) install
 
-all: autoloads $(ELCS)
+compile:
+	@echo "Compiling..."
+	$(EASK) compile
 
-autoloads: $(AUTOLOADS)
+all: autoloads
 
-$(AUTOLOADS): $(ELCS)
-	$(EMACS) -Q -batch -L . --eval \
-	"(progn \
-           (require 'package) \
-	   (package-generate-autoloads \"right-click-context\" default-directory))"
+autoloads:
+	$(EASK) autoloads
 
 clean:
-	-rm -f $(ELCS) $(AUTOLOADS)
+	$(EASK) clean-elc
+	-rm -f $(AUTOLOADS)
 
 clobber: clean
-	-rm -rf .cask
+	$(EASK) clean
 
 .PHONY: all autoloads clean clobber
+
+ci: clean package install compile
